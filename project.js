@@ -1,15 +1,16 @@
 angular.module('project', ['ngResource'])
-    .factory('ProjectCouch', function ($resource) {
-        var ProjectCouch = $resource(':protocol//:server/:db/:q/:r/:s/:t',
-            {protocol: 'http:', server: 'localhost:5984', db: 'seats'},
+    .factory('ProjectMongo', function ($resource) {
+        var ProjectMongo = $resource(':protocol//:server/:db/:q/:r',
+            {protocol: 'http:', server: 'localhost:8080', db: 'seatmap', q: 'seats'},
             {update: {method: 'PUT'}});
-        ProjectCouch.prototype.update = function (cb) {
-            return ProjectCouch.update({q: this._id}, this, cb);
+        ProjectMongo.prototype.update = function (cb) {
+            return ProjectMongo.update({r: this._id}, this, cb);
         };
-        return ProjectCouch;
+        return ProjectMongo;
     })
-    .controller('TheController', function ($scope, ProjectCouch) {
-        ProjectCouch.get({q: '_all_docs', include_docs: 'true', limit: 10}, function(rawseats) {
+    .controller('TheController', function ($scope, ProjectMongo) {
+        # TODO - this is as far as I got
+        ProjectMongo.get({ sort_by: '_id'}, function(rawseats) {
             $scope.const = {
                 reduceOpacity: "fill-opacity:0.2"
             };
@@ -20,10 +21,10 @@ angular.module('project', ['ngResource'])
         });
 
         function getSeat(id) {
-            ProjectCouch.get({q: id}, function (seat) {
+            ProjectMongo.get({r: id}, function (seat) {
                 console.log("getting... " + id);
                 $scope.original = seat;
-                $scope.selected = new ProjectCouch($scope.original);
+                $scope.selected = new ProjectMongo($scope.original);
             });
         }
 
@@ -34,7 +35,7 @@ angular.module('project', ['ngResource'])
         $scope.show = function (seatNum) {
             if (!(seatNum in $scope.seats)) {
                 var toShow = { seat: seatNum, name: "" };
-                ProjectCouch.save(toShow, function(selected) {
+                ProjectMongo.save(toShow, function(selected) {
                     toShow._id = selected.id;
                     $scope.seats[seatNum] = toShow;
                     getSeat(toShow._id);
