@@ -1,6 +1,6 @@
 angular.module('project', ['ngResource'])
     .factory('ProjectMongo', function ($resource) {
-        var ProjectMongo = $resource(':protocol//:server/:db/:q/:r',
+        var ProjectMongo = $resource(':protocol//:server/data/:db/:q/:r',
             {protocol: 'http:', server: 'localhost:8080', db: 'seatmap', q: 'seats'},
             {update: {method: 'PUT'}});
         ProjectMongo.prototype.update = function (cb) {
