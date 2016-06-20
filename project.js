@@ -9,7 +9,7 @@ angular.module('project', ['ngResource'])
         return ProjectMongo;
     })
     .controller('TheController', function ($scope, ProjectMongo) {
-        # TODO - this is as far as I got
+        // TODO - this is as far as I got
         ProjectMongo.get({ sort_by: '_id'}, function(rawseats) {
             $scope.const = {
                 reduceOpacity: "fill-opacity:0.2"
