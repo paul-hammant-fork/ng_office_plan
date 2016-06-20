@@ -1,7 +1,7 @@
 Refer to http://paulhammant.com/2015/12/21/angular-and-svg-and-couchdb/ for a primer.
 
-This was originally written for CouchDB interop. This fork is an ongoing attempt to get
-the same Angular app to interop with MongoDB via RESTHeart and CORS.
+This Angular+SVG demo-app was originally written for CouchDB interop. This fork is an will be to show
+the same Angular app working with **MongoDB** as a backend in the 'serverless' style, via **RESTHeart** and CORS.
 
 Do the setup as described in [https://github.com/SoftInstigate/restheart-blog-example](https://github.com/SoftInstigate/restheart-blog-example). Go into the blog app in a brower - [http://localhost:8080](http://localhost:8080), and log in.
 
@@ -19,3 +19,5 @@ python -m SimpleHTTPServer 8081
 ```
 
 Go into a browser to see it running [http://localhost:8081](http://localhost:8081)
+
+NOTE - this is still a work in progress.
